@@ -5,7 +5,8 @@ Demonstrates Alternating-Bit (ABT) , Go-Back-N (GBN) and Selective-Repeat (SR)
 Use provided makefile
 
 ## How to run  
-All 3 programs take the same set of inputs. The main difference is that window size will not affect abt.
+All 3 programs take the same set of inputs. The main difference is that window size will not affect abt. The maximum number of packets that can be sent at once is 1000.  
+
 Arguments:  
 -s Seed for random number generation  
 -w Window size: Window size for SR and GBN. Abt does not use this but it is needed.  
