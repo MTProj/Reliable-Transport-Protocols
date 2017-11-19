@@ -7,7 +7,7 @@ Use provided makefile
 ## How to run  
 All 3 programs take the same set of inputs. The main difference is that window size will not affect abt.
 Arguments:  
--s Seed for random number generation
+-s Seed for random number generation  
 -w Window size: Window size for SR and GBN. Abt does not use this but it is needed.
 -m Number of messages to simulate  
 -l Loss: % of packets that will be lossed
