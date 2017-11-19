@@ -18,13 +18,9 @@ using namespace std;
      (although some can be lost).
 **********************************************************************/
 
-/********* STUDENTS WRITE THE NEXT SEVEN ROUTINES *********/
-
 queue<struct pkt> pkt_buffer;   /* Queue to hold buffered Packets */
 int nextseq;                    /* Next Sequence Number to use */
 
-//float MAX_TIMEOUT;          /* Max Timeout Value */
-//float MIN_TIMEOUT;          /* Minimum Timeout Value */
 static float TIMEOUT = 20;         /* timeout before timer interrupt is called */  
 
 struct pkt last_sent_pkt;       /* Last sent packet */
@@ -49,22 +45,6 @@ int compute_checksum(struct pkt p){
   checksum = p.seqnum + p.acknum + payload_sum;
   return checksum;
 }
-
-/*
-void incTimeout(){
-  TIMEOUT ++;
-  if(TIMEOUT >  MAX_TIMEOUT){
-    TIMEOUT = MAX_TIMEOUT;
-  }
-}
-void decTimeout(){
-  TIMEOUT --;
-  if(TIMEOUT < MIN_TIMEOUT){
-    TIMEOUT = MIN_TIMEOUT;
-  }
-}
-*/
-
 
 /* called from layer 5, passed the data to be sent to other side */
 void A_output(struct msg message)
@@ -109,14 +89,10 @@ void A_input(struct pkt packet)
     /*  ACK Packet is corrupt or ACK is not for correct packet. 
         Do not stop timer. 
         Allow timerinterrupt() to happen */
-
-    /* Reduce timeout by 1 */
-    //decTimeout();
   
   }else if(checksum == packet.checksum && packet.acknum == last_sent_pkt.seqnum){
     /*  Packet is not corrupt AND acknum is correct
         Process ACK , send another packet from buffer */
-    //incTimeout();
     
     stoptimer(0);
     packet_unacked = false;
@@ -165,15 +141,9 @@ void A_timerinterrupt()
 /* entity A routines are called. You can use it to do any initialization */
 void A_init()
 {
-  //printf("Starting Program\n");
   nextseq = 0;              /* start sequence number at 0 */
   packet_unacked = false;   /* start unacked packet at false */
   pkts_sent = 0;
-
-  //MAX_TIMEOUT = 20;
-  //MIN_TIMEOUT = 4;
-  //TIMEOUT = MAX_TIMEOUT;     /* Start timeout at Max value */
-  //printf("Done");
 }
 
 /* Note that with simplex transfer from a-to-B, there is no B_output() */
