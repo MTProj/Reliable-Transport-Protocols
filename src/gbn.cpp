@@ -19,8 +19,6 @@ using namespace std;
      (although some can be lost).
 **********************************************************************/
 
-/********* STUDENTS WRITE THE NEXT SEVEN ROUTINES *********/
-
 struct windowItem{
   struct pkt p;
   int sent;
@@ -63,21 +61,6 @@ int compute_checksum(struct pkt p){
   checksum = p.seqnum + p.acknum + payload_sum;
   return checksum;
 }
-
-/*
-void incTimeout(){
-  TIMEOUT = TIMEOUT++;
-  if(TIMEOUT >  MAX_TIMEOUT){
-    TIMEOUT = MAX_TIMEOUT;
-  }
-}
-void decTimeout(){
-  TIMEOUT = TIMEOUT--;
-  if(TIMEOUT < MIN_TIMEOUT){
-    TIMEOUT = MIN_TIMEOUT;
-  }
-}
-*/
 
 /* called from layer 5, passed the data to be sent to other side */
 void A_output(struct msg message)
@@ -123,10 +106,10 @@ void A_input(struct pkt packet)
   
   if(checksum != packet.checksum){
     /* ACK Corrupted. Let Timeout */
-    //decTimeout();
+
   }else{
     /* Update Packet in Packet Window as ACKED */
-    //incTimeout();
+
     
     /* Increment Base */
     base = packet.acknum + 1;
@@ -194,11 +177,6 @@ void A_init()
   base = 0;                 /* Start base at 1 */
   nextseqnum = 0;           /* Start nextseqnum at 1 */
   N = getwinsize();         /* Window Size */
-
-  /* Set Initial Timeout */
-  //MAX_TIMEOUT = 20 + N;
-  //TIMEOUT = MAX_TIMEOUT;
-  //MIN_TIMEOUT = 10;
 }
 
 /* Note that with simplex transfer from a-to-B, there is no B_output() */
