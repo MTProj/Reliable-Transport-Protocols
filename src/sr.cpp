@@ -19,7 +19,6 @@ using namespace std;
      (although some can be lost).
 **********************************************************************/
 
-/********* STUDENTS WRITE THE NEXT SEVEN ROUTINES *********/
 struct windowItem{
   float timesent;
   struct pkt p;
@@ -34,8 +33,6 @@ int N;                            /* Window Size */
 int base;                         /* Base of window */
 int nextseqnum;                   /* Next Seq Number */
 
-//float MAX_TIMEOUT = 35;         /* Max Timeout Value */
-//float MIN_TIMEOUT = 4;          /* Minimum Timeout Value */
 static float TIMEOUT = 20;        /* timeout before timer interrupt is called */     
 
 pair<float,struct windowItem> timer_start_pkt;  /* Pair to hold the start time and pkt that started it */
@@ -71,20 +68,6 @@ int compute_checksum(struct pkt p){
   checksum = p.seqnum + p.acknum + payload_sum;
   return checksum;
 }
-/*
-void incTimeout(){
-  TIMEOUT ++;
-  if(TIMEOUT >  MAX_TIMEOUT){
-    TIMEOUT = MAX_TIMEOUT;
-  }
-}
-void decTimeout(){
-  TIMEOUT --;
-  if(TIMEOUT < MIN_TIMEOUT){
-    TIMEOUT = MIN_TIMEOUT;
-  }
-}
-*/
 void updateTimerStartTime(float _time,struct windowItem w){
   timer_start_pkt.first = _time;
   timer_start_pkt.second = w;
@@ -152,10 +135,8 @@ void A_input(struct pkt ack_packet)
 
   if(checksum != ack_packet.checksum){
     /* ACK Corrupted. Let Timeout */
-    //decTimeout();
 
   }else if(ack_packet.acknum >= base && ack_packet.acknum <= base + N){
-    //incTimeout();
     /* Print Ack Packet information */
     struct windowItem temp;
     temp.p = ack_packet;
@@ -336,7 +317,6 @@ void A_init()
   base = 0;                 /* Start base at 1 */
   nextseqnum = 0;           /* Start nextseqnum at 1 */
   N = getwinsize();         /* Set Window Size */
-  //TIMEOUT = MAX_TIMEOUT;     /* Start timeout at Max value */
 }
 
 /* Note that with simplex transfer from a-to-B, there is no B_output() */
