@@ -1,4 +1,6 @@
 # Reliable-Transport-Protocols
+**NOTE I did not write the simulator.
+
 Demonstrates Alternating-Bit (ABT) , Go-Back-N (GBN) and Selective-Repeat (SR)
 
 ## Compilation  
